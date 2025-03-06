@@ -1,0 +1,24 @@
+<div class="row gy-3">
+    {% for post in posts %}
+        <div class="col-12 col-md-4">
+            <div class="row">
+                <div class="col-5">
+                    <a href="{% url 'blog:post' post.slug %}">
+                        {% if post.mi_imagen %}
+                            <img style="height: 80px;" src="{{ post.mi_imagen }}" class="card-img-top imagen-post" alt="{{ blog.titulo }}">
+                        {% endif %}
+                    </a>
+                </div> 
+                <div class="col-7"> 
+                    {% for categoria in post.categorias.all %}
+                        <a href="" class="badge bg-info link text-white">{{ categoria.nombre|upper }}</a>
+                    {% endfor %}
+                    <a class="link" href="{% url 'blog:post' post.slug %}">
+                        <div class="mt-2 h6 card-title fw-normal">{{ post.titulo|truncatechars:107 }}</div>
+                    </a>
+                    <div class="mt-2 text-muted small">{{ post.fecha|date:"j F, Y" }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,22 @@
+
+{% for post in posts %}
+    <a href="{% url 'blog:post' post.slug %}" style="text-decoration:none; color: inherit;">
+        <div class="card border-0 mb-2">
+            <div class="row g-2">
+                <div class="col-5">
+                    {% if post.mi_imagen %}
+                        <img style="width: 100%; height: 100%; object-fit: cover;" src="{{ post.mi_imagen }}" class="card-img-top rounded-start" alt="{{ post.titulo }}">
+                    {% endif %}
+                </div>
+                <div class="col-7">
+                    <div class="card-body" style="height: 120px; overflow: hidden;">
+                        <h5 class="h6 card-title">{{ post.titulo|truncatechars:100 }}</h5>
+                        <p class="mb-1 card-text small text-muted" style="font-size: 13px!important;">
+                            {{ application.titulo_sitio }} • {{ post.fecha|date:"d/m/Y" }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+{% endfor %}

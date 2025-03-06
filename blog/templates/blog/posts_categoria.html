@@ -1,0 +1,62 @@
+{% extends 'layout/base_sidebar.html' %}
+{% load social_share %}
+
+
+{% block content %}
+
+    <div class="bg-background">
+        <div class="container-xl py-4">
+            <div class="row gy-3">
+                <div class="col-md-3">
+                    {% include 'blog/partials/filtros_categorias.html' %}
+                </div>
+                <div class="col-md-9">
+                    <div>
+                        {{ categoria|title }}
+                        <h1 class="">Blogs de la categoría {{ categoria.nombre|title }}</h1>
+                        <p>{{ categoria.descripcion }}</p>
+                        
+                        <div class="row gy-3">
+                            {% for post in posts %}
+                                <div class="col-md-6 col-12">
+                                    <a href="{% url 'blog:post' post.slug %}">
+                                        <img style="height: 230px;" src="{{ post.mi_imagen }}" class="card-img-top imagen-post" alt="{{ blog.titulo }}">
+                                    </a>
+
+                                    <div class="mt-3">
+                                        {% for categoria in post.categorias.all %}
+                                            <a href="{% url 'blog:posts_categoria' categoria.slug %}" class="badge bg-info link text-white">{{ categoria.nombre|upper }}</a>
+                                        {% endfor %}
+                                    </div>
+                                    <a class="link" href="{% url 'blog:post' post.slug %}">
+                                        <h2 class="mt-2 h4 card-title fw-normal">{{ post.titulo|truncatechars:107 }}</h2>
+                                    </a>
+                                    <div class="mt-2 text-muted" style="font-size: 11px" ><i class="fa-solid fa-clock"></i> {{ post.fecha|date:"j F, Y" }}</div>
+                                
+                                    <div class="text-muted mt-3" style="font-size: 13px">
+                                        {{ post.mi_descripcion_corta|safe|truncatechars:150 }}
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="{% url 'blog:post' post.slug %}" class="link text-info small">Ver más <i class="fa-solid fa-chevron-right fa-xs"></i></a>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            {% post_to_facebook post.mi_url_absoluta '<i class="fa-brands fa-facebook text-muted hover fa-lg"></i>' %}
+                                            {% post_to_twitter post.titulo post.mi_url_absoluta '<i class="fa-brands fa-twitter text-muted hover fa-lg"></i>' %}
+                                            {% post_to_whatsapp post.mi_url_absoluta '<i class="fa-brands fa-whatsapp text-muted hover fa-lg"></i>' %}
+                                            {% post_to_telegram post.titulo post.mi_url_absoluta '<i class="fa-brands fa-telegram text-muted hover fa-lg"></i>' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        {% include 'core/partials/pagination.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

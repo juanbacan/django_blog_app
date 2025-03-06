@@ -1,0 +1,155 @@
+{% extends 'layout/base_sidebar.html' %}
+{% load blog_extras %}
+{% load static %}
+
+{% block meta_tags %}
+    <title>{{ post.titulo }}</title>
+    <meta name="title" content="{{ producto.meta_title }}"/>
+    <meta name='keywords' content='{{ producto.meta_keywords }}'/>
+    <meta name="description" content="{{ producto.meta_description }}"/>
+{% endblock %}
+
+{% block meta_social %}
+    <meta property="og:title" content="{{ post.titulo }}">
+    <meta property="og:description" content="{{ post.mi_descripcion_corta }}">
+    <meta property="og:image" content="{{ application.url_safe }}{{ post.mi_imagen }}"/>
+    <meta property="twitter:image" content="{{ application.url_safe }}{{ post.mi_imagen }}">
+{% endblock %}
+
+{% block main %}
+    <div>
+        {% for categoria in post.categorias.all %}
+            <a href="" class="badge bg-info link text-white">{{ categoria.nombre|upper }}</a>
+        {% endfor %}
+    </div>
+
+    <h1 class="text-start mt-3">{{ post.titulo }}</h1>
+    <hr class="divisor">
+    <section>
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-3">
+            <div class="justify-content-start align-items-center d-flex gap-2">
+                {% if post.created_by|get_photo_user %}
+                    <img src="{{ post.created_by|get_photo_user }}" class="rounded-circle" style="width:23px; height:23px" alt="Avatar">
+                {% else %}
+                    <div class="rounded-circle d-flex justify-content-center align-items-center" style="width:23px; height:23px; background-color: #c7c7c7">
+                        <b class="small">{{ post.created_by|get_first_name|slice:":1"|upper }}</b>
+                    </div>
+                {% endif %}
+                <p class="ml-2 mb-0 small text-muted">{{ application.titulo_sitio }}</p>
+                <p class="mb-0">|</p>
+                <time class="text-center d-block small text-muted" datetime="{{ post.fecha|date:'Y-m-d' }}">{{ post.fecha|date:'d \d\e F \d\e Y' }}</time>
+            </div>
+
+            <div>
+                {% include 'partials/share_social.html' with title="{{ post.titulo }}" %}
+            </div>
+        </div>
+
+        <div class="mb-4 text-center">
+            {% if post.mi_imagen %}<img src="{{ post.mi_imagen }}" class="img-fluid rounded-3" alt="{{ post.titulo }}">{% endif %}
+        </div>
+        {% for descripcion in post.mis_descripciones %}
+            <div class="content">
+                {{ descripcion.contenido|safe }}
+            </div>
+        {% endfor %}
+    </section>
+
+    <hr class="divisor my-4">
+
+    <section>
+        <div class="row">
+            <div class="col-6 justify-content-start d-flex">
+                {% with post_previo=post.mi_post_previo %}
+                    {% if post_previo %}
+                        <a href="{% url 'blog:post' post_previo.slug %}" class="link2">
+                            <div class="d-flex gap-2 align-items-center h-100">
+                                <i class="text-primary fa-solid fa-2xl fa-chevron-left"></i>
+                                <div>
+                                    <p class="small text-primary mb-0">Anterior</p>
+                                    <p class="mb-0 small text-muted">{{ post_previo }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% else %}
+                        <p class="small text-muted">Este es el primer post</p>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <div class="col-6 justify-content-end d-flex">
+                {% with post_siguiente=post.mi_post_siguiente %}
+                    {% if post_siguiente %}
+                        <a href="{% url 'blog:post' post_siguiente.slug %}" class="link2">
+                            <div class="d-flex gap-2 align-items-center h-100">
+                                <div>
+                                    <p class="small text-primary mb-0">Siguiente</p>
+                                    <p class="mb-0 small text-muted">{{ post_siguiente }}</p>
+                                </div>
+                                <i class="text-primary fa-solid fa-2xl fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    {% else %}
+                        <p class="small text-muted">Este es el post más reciente</p>
+                    {% endif %}    
+                {% endwith %}
+            </div>
+        </div>
+    </section>
+    <hr class="divisor my-4">
+
+
+{% endblock main %}
+
+{% block mainout %}
+    <section class="mt-4">
+        {% include 'blog/partials/lista_posts_horizontal.html' with posts=post.mis_posts_relacionados %}
+    </section>
+{% endblock mainout %}
+
+{% block sidebar %}
+    {% if posts %}
+        <div class="mb-3" style="position: sticky; top: 30px;">
+            <h3 class="h5">Lo más nuevo</h3>
+            <hr class="divisor">
+            {% include 'blog/partials/lista_posts_sidebar.html' %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block extracss %}
+    <style>
+        .content > p > img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content > table {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        td {
+            border: 1px solid #dee2e6 !important;
+            padding: 0.5rem !important;
+            text-align: center !important;
+            border-collapse: collapse !important;
+            border-width: 2px !important;
+        }
+
+        .link2 {
+            color: inherit;
+            text-decoration: none;
+        }
+        .link2:hover {
+            text-decoration: none;
+        }
+
+    </style>
+{% endblock %}
+
+{% block extrajs%}
+
+
+{% endblock %}

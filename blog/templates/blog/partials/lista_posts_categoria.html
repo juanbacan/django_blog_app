@@ -1,0 +1,62 @@
+{% load social_share %}
+<div class="row gy-5">
+    {% if posts %}
+        <div class="col-md-6">
+            {% with posts|first as post %}
+                <a href="{% url 'blog:post' post.slug %}">
+                    <img style="height: 130px;" src="{{ post.mi_imagen }}" class="card-img-top imagen-post" alt="{{ blog.titulo }}">
+                </a>
+
+                <div class="mt-3">
+                    {% for categoria in post.categorias.all %}
+                        <a href="{% url 'blog:posts_categoria' categoria.slug %}" class="badge bg-info link text-white">{{ categoria.nombre|upper }}</a>
+                    {% endfor %}
+                </div>
+                <a class="link" href="{% url 'blog:post' post.slug %}">
+                    <h3 class="mt-2 h5 card-title fw-normal">{{ post.titulo|truncatechars:107 }}</h3>
+                </a>
+                <div class="mt-2 text-muted" style="font-size: 11px" ><i class="fa-solid fa-clock"></i> {{ post.fecha|date:"j F, Y" }}</div>
+            
+                <div class="text-muted mt-3" style="font-size: 13px">
+                    {{ post.mi_descripcion_corta|safe|truncatechars:150 }}
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'blog:post' post.slug %}" class="link text-info small">Ver más <i class="fa-solid fa-chevron-right fa-xs"></i></a>
+                    <div class="d-flex gap-2 align-items-center">
+                        {% post_to_facebook post.mi_url_absoluta '<i class="fa-brands fa-facebook text-muted hover fa-lg"></i>' %}
+                        {% post_to_twitter post.titulo post.mi_url_absoluta '<i class="fa-brands fa-twitter text-muted hover fa-lg"></i>' %}
+                        {% post_to_whatsapp post.mi_url_absoluta '<i class="fa-brands fa-whatsapp text-muted hover fa-lg"></i>' %}
+                        {% post_to_telegram post.titulo post.mi_url_absoluta '<i class="fa-brands fa-telegram text-muted hover fa-lg"></i>' %}
+                    </div>
+                </div>
+            {% endwith %}
+        </div>
+
+        <div class="col-md-6">
+            {% for post in posts %}
+                {% if forloop.counter > 1 %}
+                    <div class="row mb-3">
+                        <div class="col-5">
+                            <a href="{% url 'blog:post' post.slug %}">
+                                <img style="height: 80px;" src="{{ post.mi_imagen }}" class="card-img-top imagen-post" alt="{{ blog.titulo }}">
+                            </a>
+                        </div> 
+                        <div class="col-7"> 
+                            <a class="link" href="{% url 'blog:post' post.slug %}">
+                                <h3 class="card-title fw-normal" style="font-size: 0.8em;" >{{ post.titulo|truncatechars:107 }}</h3>
+                            </a>
+                            <div class="d-flex gap-2 align-items-center">
+                                {% post_to_facebook post.mi_url_absoluta '<i class="fa-brands fa-facebook text-muted hover"></i>' %}
+                                {% post_to_twitter post.titulo post.mi_url_absoluta '<i class="fa-brands fa-twitter text-muted hover"></i>' %}
+                                {% post_to_whatsapp post.mi_url_absoluta '<i class="fa-brands fa-whatsapp text-muted hover"></i>' %}
+                                {% post_to_telegram post.titulo post.mi_url_absoluta '<i class="fa-brands fa-telegram text-muted hover"></i>' %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 0.5rem; margin-bottom: 0.5rem; color: #0d6efd;">
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,59 @@
+
+{% load core_extras %}
+
+<div>
+    <div class="d-flex justify-content-end d-block d-md-none mb-3">
+        <a class="btn rounded-pill border bg-white shadow" data-bs-toggle="offcanvas" href="#offcanvasFiltroCategorias" role="button" aria-controls="offcanvasFiltroCategorias">
+            <i class="fa-solid fa-sliders"></i> Filtrar
+        </a>
+    </div>
+</div>
+
+<h2 class="h3"><i class="fa-solid fa-sliders"></i> Filtrar por</h2>
+<div>
+    <div class="d-flex flex-wrap gap-2">
+        {% if categoria_filtro %}
+            <a title="Filtro de Categorias" href="{% url 'blog:posts' %}" class="btn btn-outline-primary btn-sm rounded-pill"><i class="fa-solid fa-xmark"></i> {{ categoria_filtro.nombre|truncatechars:20 }}</a>
+        {% endif %}
+
+        {% if kword %}
+            <a title="Filtro de Palabra Clave" href="{% exclude_filter_url url 'kword,pagina' %}" class="btn btn-outline-primary btn-sm rounded-pill"><i class="fa-solid fa-xmark"></i> {{ kword }}</a>
+        {% endif %}
+    </div>
+    
+    <div class="d-none d-md-block mt-3">
+        {% if lista_categorias %}
+            <hr class="my-2">
+            <h3 class="h4">Categorias</h3>
+            {% for categoria in lista_categorias %}
+                <div class="d-flex justify-content-between">
+                    <a title="Filtro de Categorias por Categorias {{ categoria.nombre }}" href="{% url 'blog:posts_categoria' categoria.slug %}" class="link">{{ categoria }}</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFiltroCategorias" aria-labelledby="offcanvasFiltroCategoriasLabel">
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title" id="offcanvasFiltroCategoriasLabel"><i class="fa-solid fa-sliders"></i> Filtros</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="d-block d-md-none">
+            <div class="d-block d-md-none">
+                {% if lista_categorias %}
+                    <hr class="my-2">
+                    <h3 class="h4">Categorias</h3>
+                    {% for categoria in lista_categorias %}
+                        <div class="d-block d-md-none">
+                            <a title="Filtro de Categorias {{ categoria.nombre }}" href="{% url 'blog:posts_categoria' categoria.slug %}" class="link">{{ categoria }}</a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
