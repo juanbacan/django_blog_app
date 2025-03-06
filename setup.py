@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-blog-app",  # Nombre que tendrá en PyPI
-    version="0.1.1",         # Versión inicial (usa Semantic Versioning)
+    version="0.1.2",         # Versión inicial (usa Semantic Versioning)
     packages=find_packages(),
     include_package_data=True,  # Incluye archivos declarados en MANIFEST.in
     install_requires=[
