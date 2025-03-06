@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-blog-app",  # Nombre que tendrá en PyPI
-    version="0.1.6",         # Versión inicial (usa Semantic Versioning)
+    version="0.1.1",         # Versión inicial (usa Semantic Versioning)
     packages=find_packages(),
     include_package_data=True,  # Incluye archivos declarados en MANIFEST.in
     install_requires=[
@@ -12,7 +12,7 @@ setup(
         "django-tinymce==3.5.0",
         "django-social-share",
         "pillow",
-        "git+https://github.com/juanbacan/django_core_app.git#egg=django-core-app",
+        "django-core-app @ git+https://github.com/juanbacan/django_core_app.git",
     ],
     author="juanbacan",
     author_email="juan.ingaor@gmail.com",
