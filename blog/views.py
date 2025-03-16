@@ -26,7 +26,6 @@ class PostView(View):
     def get(self, request, *args, **kwargs):
         context = {}
         slug = kwargs['slug']
-        post = Post.objects.get(slug=slug)
         context['post'] = Post.objects.get(slug=slug)
         context['posts'] = Post.objects.exclude(slug=slug).order_by('-fecha')[:6]
         return render(request, 'blog/post.html', context)
