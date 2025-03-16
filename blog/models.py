@@ -60,8 +60,11 @@ class Post(ModeloBase):
         return self.titulo
     
     def mi_imagen(self):
-        imagen = self.imagenpost_set.filter(principal=True).first() or self.imagenpost_set.first()
-        return imagen.imagen.url if imagen else None
+        try:
+            imagen = self.imagenpost_set.filter(principal=True).first() or self.imagenpost_set.first()
+            return imagen.imagen.url if imagen else None
+        except:
+            return None
 
 
     def mis_descripciones(self):
