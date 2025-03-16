@@ -60,31 +60,16 @@ class Post(ModeloBase):
         return self.titulo
     
     def mi_imagen(self):
-        # Obtiene la imagen principal del post
-        imagen = self.imagenpost_set.filter(principal=True).first()
-        if imagen:
-            return imagen.imagen.url
-        else:
-            imagen = self.imagenpost_set.all().first()
-            if imagen:
-                return imagen.imagen.url
-            else:
-                return None
+        imagen = self.imagenpost_set.filter(principal=True).first() or self.imagenpost_set.first()
+        return imagen.imagen.url if imagen else None
+
 
     def mis_descripciones(self):
-        # return self.contenidoblog_set.all().order_by('orden')
         return self.contenidoblog_set.all().order_by('id')
     
     def mi_descripcion_corta(self):
-        if self.meta_description:
-            return self.meta_description
-        else:
-            # Obtiene la primera descripción del post
-            descripcion = self.contenidoblog_set.all().order_by('orden').first()
-            if descripcion:
-                return descripcion.contenido
-            else:
-                return "Sin descripción"
+        return self.meta_description or self.contenidoblog_set.order_by('orden').first().contenido or "Sin descripción"
+
 
     def mi_post_previo(self):
         post_previo = Post.objects.filter(fecha__lt=self.fecha).order_by('-fecha').first()
