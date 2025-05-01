@@ -19,7 +19,7 @@
 {% block main %}
     <div>
         {% for categoria in post.categorias.all %}
-            <a href="" class="badge bg-info link text-white">{{ categoria.nombre|upper }}</a>
+            <a href="{% url 'blog:posts_categoria' categoria.slug %}" class="badge bg-info link text-white">{{ categoria.nombre|upper }}</a>
         {% endfor %}
     </div>
 

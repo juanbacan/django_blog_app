@@ -1,6 +1,6 @@
 <div class="row gy-3">
     {% for post in posts %}
-        <article itemscope itemtype="https://schema.org/NewsArticle" class="col-12 col-md-4">
+        <article itemscope itemtype="https://schema.org/NewsArticle" class="col-12 col-md-4 position-relative">
             {# ———— METADATOS OCULTOS ———— #}
             <meta itemprop="mainEntityOfPage"
                   content="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}">
