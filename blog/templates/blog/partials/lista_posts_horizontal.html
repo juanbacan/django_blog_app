@@ -39,7 +39,7 @@
           <div class="col-12 mt-2">
               {# Categorías (keywords) #}
               {% for categoria in post.categorias.all %}
-                  <a href="{% url 'blog:categoria' categoria.slug %}"
+                  <a href="{% url 'blog:posts_categoria' categoria.slug %}"
                      class="badge bg-info text-white link"
                      itemprop="keywords">{{ categoria.nombre|upper }}</a>
               {% endfor %}

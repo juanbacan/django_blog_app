@@ -34,7 +34,7 @@
                     {# Categorías como etiquetas/keywords #}
                     {% for categoria in post.categorias.all %}
                         <a class="badge bg-info text-white link"
-                           href="{% url 'blog:categoria' categoria.slug %}"
+                           href="{% url 'blog:posts_categoria' categoria.slug %}"
                            itemprop="keywords">{{ categoria.nombre|upper }}</a>
                     {% endfor %}
     
