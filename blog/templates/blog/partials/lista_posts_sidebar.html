@@ -1,22 +1,48 @@
-
 {% for post in posts %}
-    <a href="{% url 'blog:post' post.slug %}" style="text-decoration:none; color: inherit;">
-        <div class="card border-0 mb-2">
-            <div class="row g-2">
-                <div class="col-5">
-                    {% if post.mi_imagen %}
-                        <img style="width: 100%; height: 100%; object-fit: cover;" src="{{ post.mi_imagen }}" class="card-img-top rounded-start" alt="{{ post.titulo }}">
-                    {% endif %}
-                </div>
-                <div class="col-7">
-                    <div class="card-body" style="height: 120px; overflow: hidden;">
-                        <h5 class="h6 card-title">{{ post.titulo|truncatechars:100 }}</h5>
-                        <p class="mb-1 card-text small text-muted" style="font-size: 13px!important;">
-                            {{ application.titulo_sitio }} • {{ post.fecha|date:"d/m/Y" }}
-                        </p>
-                    </div>
-                </div>
+<article itemscope itemtype="https://schema.org/NewsArticle" class="card border-0 mb-2">
+    {# ———— METADATOS OCULTOS ———— #}
+    {# URL canónica de la noticia #}
+    <meta itemprop="mainEntityOfPage" content="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}">
+
+    {# Fechas #}
+    <meta itemprop="datePublished"  content="{{ post.fecha|date:'Y-m-d' }}">
+    <meta itemprop="dateModified"   content="{{ post.actualizado|default:post.fecha|date:'Y-m-d' }}">
+    {# Autor / editor (organización) #}
+    <meta itemprop="author"   content="{{ application.titulo_sitio }}">
+    <meta itemprop="publisher" content="{{ application.titulo_sitio }}">
+
+    <div class="row g-2">
+        <div class="col-5">
+            {% if post.mi_imagen %}
+                <img  itemprop="image"
+                      loading="lazy"
+                      width="120" height="90"
+                      class="card-img-top rounded-start"
+                      style="object-fit:cover;"
+                      src="{{ post.mi_imagen }}"
+                      alt="Imagen de {{ post.titulo }}">
+            {% endif %}
+        </div>
+
+        <div class="col-7">
+            <div class="card-body" style="height:120px;overflow:hidden;">
+                {# TITULAR #}
+                <h3 class="h6 card-title" itemprop="headline">
+                    {{ post.titulo|truncatechars:100 }}
+                </h3>
+
+                {# FECHA + FUENTE VISIBLE #}
+                <p class="mb-1 small text-muted" style="font-size:13px!important;">
+                    {{ application.titulo_sitio }} • {{ post.fecha|date:"d/m/Y" }}
+                </p>
             </div>
         </div>
-    </a>
+    </div>
+
+    {# ENLACE CLICABLE QUE CUBRE TODA LA TARJETA #}
+    <a href="{% url 'blog:post' post.slug %}"
+       class="stretched-link"
+       itemprop="url"
+       rel="noopener"></a>
+</article>
 {% endfor %}

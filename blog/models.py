@@ -2,13 +2,14 @@ import os, datetime
 from PIL import Image
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
+from django.utils.functional import cached_property
 
 from mptt.models import MPTTModel, TreeForeignKey
 from tinymce import models as tinymce_models
 from django_resized import ResizedImageField
-from django.utils.functional import cached_property
 
-from core.models import ModeloBase, AplicacionWeb
+from core.models import ModeloBase
 
 from .managers import PostManager
 
@@ -98,6 +99,9 @@ class Post(ModeloBase):
     @cached_property
     def mi_url_absoluta(self):
         return f"{settings.URL_BASE}{self.mi_url_relativa()}"
+    
+    def get_absolute_url(self):
+        return reverse('blog:post', args=[self.slug])
 
 
 class ImagenPost(ModeloBase):
