@@ -4,9 +4,38 @@
 
 {% block meta_tags %}
     <title>{{ post.titulo }}</title>
-    <meta name="title" content="{{ producto.meta_title }}"/>
-    <meta name='keywords' content='{{ producto.meta_keywords }}'/>
-    <meta name="description" content="{{ producto.meta_description }}"/>
+    <meta name="title" content="{{ post.meta_title }}"/>
+    <meta name="description" content="{{ post.meta_description }}"/>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "{{ post.mi_url_absoluta }}"
+            },
+            "headline": "{{ post.titulo }}",
+            "image": [
+                "{{ application.url_safe }}{{ post.mi_imagen }}"
+            ],
+            "datePublished": "{{ post.fecha|date:'c' }}",
+            "dateModified": "{{ post.modified_at|date:'c' }}",
+            "author": [{
+                "@type": "Person",
+                "name": "{{ application.titulo_sitio }}",
+                "url": "{{ application.url_safe }}/"
+            }],
+            "publisher": {
+                "@type": "Organization",
+                "name": "{{ application.titulo_sitio }}",
+                "logo": {
+                    "@type": "ImageObject",
+                }
+            },
+            "description": "{{ post.meta_description }}"
+        }
+    </script>
 {% endblock %}
 
 {% block meta_social %}
