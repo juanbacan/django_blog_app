@@ -4,8 +4,8 @@
             {# ———— METADATOS OCULTOS ———— #}
             <meta itemprop="mainEntityOfPage"
                   content="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}">
-            <meta itemprop="datePublished"  content="{{ post.fecha|date:'Y-m-d' }}">
-            <meta itemprop="dateModified"   content="{{ post.actualizado|default:post.fecha|date:'Y-m-d' }}">
+            <meta itemprop="datePublished"  content="{{ post.fecha|date:'c' }}">
+            <meta itemprop="dateModified"   content="{{ post.modified_at|date:'c' }}">
     
             {# Publisher como Organization (opcional, pero recomendado) #}
             <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">

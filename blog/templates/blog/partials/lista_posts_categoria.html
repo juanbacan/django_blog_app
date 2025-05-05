@@ -8,8 +8,8 @@
 
         {# --- datos estructurados ocultos --- #}
         <meta itemprop="mainEntityOfPage" content="{{ request.scheme }}://{{ request.get_host }}{{ post.0.get_absolute_url }}">
-        <meta itemprop="datePublished" content="{{ posts.0.fecha|date:'Y-m-d' }}">
-        <meta itemprop="dateModified"  content="{{ posts.0.actualizado|default:posts.0.fecha|date:'Y-m-d' }}">
+        <meta itemprop="datePublished" content="{{ posts.0.fecha|date:'c' }}">
+        <meta itemprop="dateModified"  content="{{ posts.0.modified_at|date: 'c' }}">
         <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" content="{{ application.titulo_sitio }}">
         </span>
@@ -42,7 +42,7 @@
             </h2>
         </a>
 
-        <time datetime="{{ posts.0.fecha|date:'Y-m-d' }}"
+        <time datetime="{{ posts.0.fecha|date:'c' }}"
               class="mt-2 text-muted d-block" style="font-size:11px"
               itemprop="datePublished">
               <i class="fa-solid fa-clock"></i> {{ posts.0.fecha|date:"j F, Y" }}
@@ -78,8 +78,8 @@
 
             <meta itemprop="mainEntityOfPage"
                   content="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}">
-            <meta itemprop="datePublished" content="{{ post.fecha|date:'Y-m-d' }}">
-            <meta itemprop="dateModified"  content="{{ post.actualizado|default:post.fecha|date:'Y-m-d' }}">
+            <meta itemprop="datePublished" content="{{ post.fecha|date:'c' }}">
+            <meta itemprop="dateModified"  content="{{ post.modified_at|date:'c' }}">
 
             <div class="col-5">
                 <a href="{% url 'blog:post' post.slug %}"
