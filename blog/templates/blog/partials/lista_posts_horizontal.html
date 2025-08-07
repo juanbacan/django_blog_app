@@ -1,7 +1,9 @@
+{% load i18n %}
+
 {% if title_posts_horizontal %}
   <h2>{{ title_posts_horizontal }}</h2>
 {% else %}
-  <h2>Artículos Relacionados</h2>
+  <h2>{% trans "Artículos Relacionados" %}</h2>
 {% endif %}
 <hr class="divisor my-4">
 
@@ -30,7 +32,7 @@
                             class="card-img-top imagen-post rounded"
                             style="object-fit:cover;height:200px;"
                             src="{{ post.mi_imagen }}"
-                            alt="Imagen de {{ post.titulo }}">
+                            alt="{% trans 'Imagen de' %} {{ post.titulo }}">
                   {% endif %}
               </a>
           </div>
@@ -61,7 +63,7 @@
 
   <div class="d-flex justify-content-center mt-5">
       <a href="{% url 'blog:posts' %}"
-         class="btn btn-primary">Ver todos los posts
+         class="btn btn-primary">{% trans "Ver todos los posts" %}
          <i class="fa-solid fa-chevron-right"></i></a>
   </div>
 

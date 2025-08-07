@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-06 14:28-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: templates/blog/partials/filtros_categorias.html:8
+msgid "Filtrar"
+msgstr "Filtrar"
+
+#: templates/blog/partials/filtros_categorias.html:13
+msgid "Filtrar por"
+msgstr "Filtrar por"
+
+#: templates/blog/partials/filtros_categorias.html:17
+#: templates/blog/partials/filtros_categorias.html:52
+msgid "Filtro de Categorias"
+msgstr "Filtro de Categorias"
+
+#: templates/blog/partials/filtros_categorias.html:21
+msgid "Filtro de Palabra Clave"
+msgstr "Filtro de Palavra-chave"
+
+#: templates/blog/partials/filtros_categorias.html:28
+#: templates/blog/partials/filtros_categorias.html:49
+msgid "Categorias"
+msgstr "Categorias"
+
+#: templates/blog/partials/filtros_categorias.html:31
+msgid "Filtro de Categorias por Categorias"
+msgstr "Filtro de Categorias por Categorias"
+
+#: templates/blog/partials/filtros_categorias.html:41
+msgid "Filtros"
+msgstr "Filtros"
+
+#: templates/blog/partials/lista_posts_categoria.html:24
+#: templates/blog/partials/lista_posts_categoria.html:91
+#: templates/blog/partials/lista_posts_horizontal.html:35
+#: templates/blog/partials/lista_posts_sidebar.html:25
+msgid "Imagen de"
+msgstr "Imagem de"
+
+#: templates/blog/partials/lista_posts_categoria.html:56
+#: templates/blog/posts.html:53 templates/blog/posts_categoria.html:42
+msgid "Ver más"
+msgstr "Ver mais"
+
+#: templates/blog/partials/lista_posts_horizontal.html:6
+msgid "Artículos Relacionados"
+msgstr "Artigos Relacionados"
+
+#: templates/blog/partials/lista_posts_horizontal.html:66
+msgid "Ver todos los posts"
+msgstr "Ver todos os posts"
+
+#: templates/blog/post.html:100
+msgid "Anterior"
+msgstr "Anterior"
+
+#: templates/blog/post.html:106
+msgid "Este es el primer post"
+msgstr "Este é o primeiro post"
+
+#: templates/blog/post.html:117
+msgid "Siguiente"
+msgstr "Próximo"
+
+#: templates/blog/post.html:124
+msgid "Este es el post más reciente"
+msgstr "Este é o post mais recente"
+
+#: templates/blog/post.html:144
+msgid "Lo más nuevo"
+msgstr "Mais recente"
+
+#: templates/blog/posts.html:15
+msgid "Blogs"
+msgstr "Blogs"
+
+#: templates/blog/posts.html:17
+msgid "Revisa los últimos posts de nuestro blog."
+msgstr "Confira os últimos posts do nosso blog."
+
+#: templates/blog/posts.html:24
+msgid "Buscar Blog ..."
+msgstr "Buscar Blog ..."
+
+#: templates/blog/posts.html:25
+msgid "Buscar"
+msgstr "Buscar"
+
+#: templates/blog/posts_categoria.html:17
+msgid "Blogs de la categoría"
+msgstr "Blogs da categoria"

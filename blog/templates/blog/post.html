@@ -1,6 +1,7 @@
 {% extends 'layout/base_sidebar.html' %}
 {% load blog_extras %}
 {% load static %}
+{% load i18n %}
 
 {% block meta_tags %}
     <title>{{ post.titulo }}</title>
@@ -96,13 +97,13 @@
                             <div class="d-flex gap-2 align-items-center h-100">
                                 <i class="text-primary fa-solid fa-2xl fa-chevron-left"></i>
                                 <div>
-                                    <p class="small text-primary mb-0">Anterior</p>
+                                    <p class="small text-primary mb-0">{% trans "Anterior" %}</p>
                                     <p class="mb-0 small text-muted">{{ post_previo }}</p>
                                 </div>
                             </div>
                         </a>
                     {% else %}
-                        <p class="small text-muted">Este es el primer post</p>
+                        <p class="small text-muted">{% trans "Este es el primer post" %}</p>
                     {% endif %}
                 {% endwith %}
             </div>
@@ -113,14 +114,14 @@
                         <a href="{% url 'blog:post' post_siguiente.slug %}" class="link2">
                             <div class="d-flex gap-2 align-items-center h-100">
                                 <div>
-                                    <p class="small text-primary mb-0">Siguiente</p>
+                                    <p class="small text-primary mb-0">{% trans "Siguiente" %}</p>
                                     <p class="mb-0 small text-muted">{{ post_siguiente }}</p>
                                 </div>
                                 <i class="text-primary fa-solid fa-2xl fa-chevron-right"></i>
                             </div>
                         </a>
                     {% else %}
-                        <p class="small text-muted">Este es el post más reciente</p>
+                        <p class="small text-muted">{% trans "Este es el post más reciente" %}</p>
                     {% endif %}    
                 {% endwith %}
             </div>
@@ -140,7 +141,7 @@
 {% block sidebar %}
     {% if posts %}
         <div class="mb-3" style="position: sticky; top: 30px;">
-            <h3 class="h5">Lo más nuevo</h3>
+            <h3 class="h5">{% trans "Lo más nuevo" %}</h3>
             <hr class="divisor">
             {% include 'blog/partials/lista_posts_sidebar.html' %}
         </div>

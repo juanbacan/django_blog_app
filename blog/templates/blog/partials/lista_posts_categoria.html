@@ -1,4 +1,5 @@
 {% load social_share %}
+{% load i18n %}
 
 <div class="row gy-5">
 {% if posts %}
@@ -20,7 +21,7 @@
                     class="card-img-top imagen-post"
                     style="object-fit:cover;height:130px;"
                     src="{{ posts.0.mi_imagen }}"
-                    alt="Imagen de {{ posts.0.titulo }}">
+                    alt="{% trans 'Imagen de' %} {{ posts.0.titulo }}">
             {% endif %}
         </a>
 
@@ -52,7 +53,7 @@
         {#  Botones share  #}
         <div class="d-flex justify-content-between align-items-center">
             <a href="{% url 'blog:post' posts.0.slug %}"
-            class="link text-info small">Ver más
+            class="link text-info small">{% trans "Ver más" %}
             <i class="fa-solid fa-chevron-right fa-xs"></i></a>
 
             <div class="d-flex gap-2 align-items-center">
@@ -87,7 +88,7 @@
                          class="card-img-top imagen-post"
                          style="object-fit:cover;height:80px;"
                          src="{{ post.mi_imagen }}"
-                         alt="Imagen de {{ post.titulo }}">
+                         alt="{% trans 'Imagen de' %} {{ post.titulo }}">
                 </a>
             </div>
 

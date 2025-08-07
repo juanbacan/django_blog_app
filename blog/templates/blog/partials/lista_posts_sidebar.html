@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% for post in posts %}
 <article itemscope itemtype="https://schema.org/NewsArticle" class="card border-0 mb-2">
     {# ———— METADATOS OCULTOS ———— #}
@@ -20,7 +22,7 @@
                       class="card-img-top rounded-start"
                       style="object-fit:cover;"
                       src="{{ post.mi_imagen }}"
-                      alt="Imagen de {{ post.titulo }}">
+                      alt="{% trans 'Imagen de' %} {{ post.titulo }}">
             {% endif %}
         </div>
 
