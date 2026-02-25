@@ -13,7 +13,7 @@
         </span>
 
         <a href="{% url 'blog:post' posts.0.slug %}"
-        itemprop="url" rel="noopener">
+            itemprop="url" rel="noopener">
             {% if posts.0.mi_imagen %}
             <img  itemprop="image"
                     loading="lazy"
@@ -89,9 +89,7 @@
             </div>
 
             <div class="col-7">
-                <a href="{% url 'blog:post' post.slug %}"
-                   class="link stretched-link"
-                   itemprop="url" rel="noopener">
+                <a href="{% url 'blog:post' post.slug %}" class="link" itemprop="url" rel="noopener">
                     <h3 class="card-title fw-normal"
                         style="font-size:.8em"
                         itemprop="headline">
