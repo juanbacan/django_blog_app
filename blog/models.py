@@ -32,6 +32,13 @@ class Categoria(MPTTModel):
             k = k.parent
         return ' -> '.join(full_path[::-1])
     
+    @property
+    def mis_posts(self):        
+        # Esto obtiene los posts de esta categoría y de todas sus descendientes
+        # Si no quieres incluir subcategorías, usa: return self.post_set.all().order_by('-fecha')[:5]
+        return Post.objects.filter(categorias__in=self.get_descendants(include_self=True)).distinct().order_by('-fecha')[:5]
+    
+    
 
 class Etiqueta(ModeloBase):
     nombre = models.CharField(max_length=50, unique=True)
