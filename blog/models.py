@@ -57,6 +57,22 @@ class Post(ModeloBase):
     meta_title = models.CharField(max_length=200, null=True, blank=True)
     meta_keywords = models.CharField(max_length=300, null=True, blank=True)
     meta_description = models.TextField(max_length=500, null=True, blank=True)
+    
+    # Campos para publicación en redes sociales
+    # Facebook
+    publicado_facebook = models.BooleanField(default=False, verbose_name="Publicado en Facebook")
+    url_post_facebook = models.URLField(max_length=500, null=True, blank=True, verbose_name="URL del post en Facebook")
+    
+    # WhatsApp
+    publicado_whatsapp = models.BooleanField(default=False, verbose_name="Publicado en WhatsApp")
+    whatsapp_message_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="ID del mensaje de WhatsApp")
+    whatsapp_channel = models.CharField(max_length=255, null=True, blank=True, verbose_name="Canal/Número de WhatsApp")
+    
+    # Telegram
+    publicado_telegram = models.BooleanField(default=False, verbose_name="Publicado en Telegram")
+    telegram_message_id = models.BigIntegerField(null=True, blank=True, verbose_name="ID del mensaje de Telegram")
+    telegram_chat_id = models.CharField(max_length=100, null=True, blank=True, verbose_name="ID del chat de Telegram")
+    url_post_telegram = models.URLField(max_length=500, null=True, blank=True, verbose_name="URL del post en Telegram")
 
     objects = PostManager()
     

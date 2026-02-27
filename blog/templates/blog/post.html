@@ -71,12 +71,7 @@
                 <time class="text-center d-block small text-muted" datetime="{{ post.fecha|date:'Y-m-d' }}">{{ post.fecha|date:'d \d\e F \d\e Y' }}</time>
             </div>
 
-            <div class="d-flex gap-2 align-items-center">
-                {% if user.is_superuser %}
-                    <a href="{% url 'admin:blog_post_change' post.id %}" class="btn btn-sm btn-warning">
-                        <i class="fa-solid fa-pen"></i> {% trans "Editar" %}
-                    </a>
-                {% endif %}
+            <div>
                 {% include 'core/partials/share_social.html' with title="{{ post.titulo }}" %}
             </div>
         </div>
