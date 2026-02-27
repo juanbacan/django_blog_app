@@ -6,7 +6,7 @@ from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from .models import Post, ContenidoBlog, Categoria, ImagenPost, Etiqueta
 
 # Importar funciones de publicación
-from blog.facebook_blog import publicar_blog_facebook, republicar_blog_facebook
+from blog.facebook_blog import publicar_blog_facebook, republicar_blog_facebook, publicar_blog_con_link
 from blog.telegram_blog import publicar_blog_telegram, republicar_blog_telegram
 from blog.whatsapp_blog import publicar_blog_whatsapp_simple
 
@@ -175,7 +175,7 @@ class PostAdmin(admin.ModelAdmin):
                 continue
                 
             try:
-                success, response, comment_success, comment_response = publicar_blog_facebook(post)
+                success, response, comment_success, comment_response = publicar_blog_con_link(post)
                 
                 if success:
                     publicados += 1
@@ -417,7 +417,7 @@ class PostAdmin(admin.ModelAdmin):
             # 1. PUBLICAR EN FACEBOOK
             if not post.publicado_facebook:
                 try:
-                    success_fb, response_fb, _, _ = publicar_blog_facebook(post)
+                    success_fb, response_fb, _, _ = publicar_blog_con_link(post)
                     if success_fb:
                         publicados_post += 1
                         messages.success(request, f"✅ Facebook - '{post.titulo}' publicado")
