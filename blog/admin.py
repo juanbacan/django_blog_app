@@ -2,6 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.contrib import messages
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from .models import Post, ContenidoBlog, Categoria, ImagenPost, Etiqueta
 
@@ -106,13 +107,11 @@ class PostAdmin(admin.ModelAdmin):
                 obj.url_post_facebook
             )
         elif obj.publicado_facebook:
-            return format_html(
-                '<span style="color: orange; font-weight: bold;">⚠️ Publicado sin URL</span>'
-            )
+            # CAMBIO: Usar mark_safe para texto estático
+            return mark_safe('<span style="color: orange; font-weight: bold;">⚠️ Publicado sin URL</span>')
         else:
-            return format_html(
-                '<span style="color: red; font-weight: bold;">❌ No publicado</span>'
-            )
+            # CAMBIO: Usar mark_safe para texto estático
+            return mark_safe('<span style="color: red; font-weight: bold;">❌ No publicado</span>')
 
     @admin.display(description='Telegram')
     def telegram_status(self, obj):
@@ -123,29 +122,22 @@ class PostAdmin(admin.ModelAdmin):
                 obj.url_post_telegram
             )
         elif obj.publicado_telegram:
-            return format_html(
-                '<span style="color: orange; font-weight: bold;">⚠️ Publicado sin URL</span>'
-            )
+            # CAMBIO: Usar mark_safe
+            return mark_safe('<span style="color: orange; font-weight: bold;">⚠️ Publicado sin URL</span>')
         else:
-            return format_html(
-                '<span style="color: red; font-weight: bold;">❌ No publicado</span>'
-            )
+            # CAMBIO: Usar mark_safe
+            return mark_safe('<span style="color: red; font-weight: bold;">❌ No publicado</span>')
 
     @admin.display(description='WhatsApp')
     def whatsapp_status(self, obj):
         """Mostrar estado de publicación en WhatsApp"""
         if obj.publicado_whatsapp and obj.whatsapp_message_id:
-            return format_html(
-                '<span style="color: green; font-weight: bold;">✅ Publicado</span>'
-            )
+            # CAMBIO: Todos estos son estáticos porque no tienen variables inyectadas
+            return mark_safe('<span style="color: green; font-weight: bold;">✅ Publicado</span>')
         elif obj.publicado_whatsapp:
-            return format_html(
-                '<span style="color: orange; font-weight: bold;">⚠️ Publicado sin ID</span>'
-            )
+            return mark_safe('<span style="color: orange; font-weight: bold;">⚠️ Publicado sin ID</span>')
         else:
-            return format_html(
-                '<span style="color: red; font-weight: bold;">❌ No publicado</span>'
-            )
+            return mark_safe('<span style="color: red; font-weight: bold;">❌ No publicado</span>')
 
     def activate(self, request, queryset):
         """Activar posts seleccionados"""
