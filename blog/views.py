@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.views.generic import ListView, View
 from django.db.models import Q
 from .models import Post, Categoria
+from .mixins import InheritableContextMixin, HookAccessMixin
 
 from core.utils import get_url_params
 
@@ -19,8 +19,9 @@ from core.utils import get_url_params
 #         return render(request, 'blog/posts.html', context)
 
 
-class PostView(View):
+class PostView(HookAccessMixin, InheritableContextMixin, View):
     template_name = 'blog/post.html'
+    access_hook_key = 'post_detalle'
 
 
     def get(self, request, *args, **kwargs):
@@ -28,15 +29,16 @@ class PostView(View):
         slug = kwargs['slug']
         context['post'] = Post.objects.get(slug=slug)
         context['posts'] = Post.objects.exclude(slug=slug).order_by('-fecha')[:6]
-        return render(request, 'blog/post.html', context)
+        return self.render_with_context(request, self.template_name, **context)
 
 
-class PostsListView(ListView):
+class PostsListView(HookAccessMixin, InheritableContextMixin, ListView):
     model = Post
     template_name = 'blog/posts.html'
     context_object_name = 'posts'
     paginate_by = 20
     page_kwarg = 'pagina'
+    access_hook_key = 'posts_lista'
 
     def get_queryset(self):
         posts = Post.objects.all()
@@ -60,15 +62,16 @@ class PostsListView(ListView):
         context['url'] = self.request.get_full_path()
         context['url_params'] = get_url_params(self.request)
         context['kword'] = self.request.GET.get("kword", None)
-        return context
+        return self.get_merged_context(request=self.request, **context)
 
 
-class PostsCategoriaListView(ListView):
+class PostsCategoriaListView(HookAccessMixin, InheritableContextMixin, ListView):
     model = Post
     template_name = 'blog/posts_categoria.html'
     context_object_name = 'posts'
     paginate_by = 20
     page_kwarg = 'pagina'
+    access_hook_key = 'posts_categoria'
 
     def get_queryset(self):
         slug = self.kwargs['categoria']
@@ -86,5 +89,5 @@ class PostsCategoriaListView(ListView):
         context['url'] = self.request.get_full_path()
         context['url_params'] = get_url_params(self.request)
         context['kword'] = self.request.GET.get("kword", None)
-        return context
+        return self.get_merged_context(request=self.request, **context)
 
