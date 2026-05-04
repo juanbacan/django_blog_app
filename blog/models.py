@@ -84,9 +84,28 @@ class Post(ModeloBase):
         return self.titulo
     
     def mi_imagen(self):
+        """Retorna la URL completa (absoluta) de la imagen."""
         try:
+            from django.conf import settings
+            
             imagen = self.imagenpost_set.filter(principal=True).first() or self.imagenpost_set.first()
-            return imagen.imagen.url if imagen else None
+            if not imagen:
+                return None
+                
+            url = imagen.imagen.url
+            if not url:
+                return None
+            
+            # Si ya es URL absoluta, devolverla tal como está
+            if url.startswith(('http://', 'https://')):
+                return url
+            
+            # Si no, construir la URL completa usando SITE_URL de settings
+            site_url = getattr(settings, 'SITE_URL', '').rstrip('/')
+            if site_url:
+                return f"{site_url}{url}"
+            
+            return url
         except:
             return None
 

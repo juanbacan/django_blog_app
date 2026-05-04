@@ -18,7 +18,7 @@
             },
             "headline": "{{ post.titulo }}",
             "image": [
-                "{{ application.url_safe }}{{ post.mi_imagen }}"
+                "{{ post.mi_imagen }}"
             ],
             "datePublished": "{{ post.fecha|date:'c' }}",
             "dateModified": "{{ post.modified_at|date:'c' }}",
@@ -43,8 +43,8 @@
 {% block meta_social %}
     <meta property="og:title" content="{{ post.titulo }}">
     <meta property="og:description" content="{{ post.mi_descripcion_corta }}">
-    <meta property="og:image" content="{{ application.url_safe }}{{ post.mi_imagen }}"/>
-    <meta property="twitter:image" content="{{ application.url_safe }}{{ post.mi_imagen }}">
+    <meta property="og:image" content="{{ post.mi_imagen }}"/>
+    <meta property="twitter:image" content="{{ post.mi_imagen }}">
 {% endblock %}
 
 {% block main %}
