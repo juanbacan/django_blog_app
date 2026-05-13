@@ -27,7 +27,11 @@
                             </form>
                         </div>
                     </div>
-                    
+
+                    <div class="my-4 text-center">
+                        {% include 'core/partials/ads.html' %}
+                    </div>
+
                     <div class="row gy-5">
                         {% for post in posts %}
                             <div class="col-md-6 col-12">
@@ -61,6 +65,10 @@
                             </div>
                         {% endfor %}
                     </div>
+                </div>
+
+                <div class="my-4 text-center">
+                    {% include 'core/partials/ads.html' %}
                 </div>
 
                 <div class="mt-5">

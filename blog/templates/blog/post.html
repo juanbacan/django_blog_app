@@ -84,11 +84,20 @@
         <div class="mb-4 text-center">
             {% if post.mi_imagen %}<img src="{{ post.mi_imagen }}" class="img-fluid rounded-3" alt="{{ post.titulo }}">{% endif %}
         </div>
+
+        <div class="my-4 text-center">
+            {% include 'core/partials/ads.html' %}
+        </div>
+
         {% for descripcion in post.mis_descripciones %}
             <div class="content">
                 {{ descripcion.contenido|safe }}
             </div>
         {% endfor %}
+
+        <div class="my-4 text-center">
+            {% include 'core/partials/ads.html' %}
+        </div>
     </section>
 
     <hr class="divisor my-4">
