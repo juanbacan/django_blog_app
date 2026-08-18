@@ -54,8 +54,8 @@ class PostForm(forms.ModelForm):
 class PostAdmin(admin.ModelAdmin):
     form = PostForm
     inlines = [ImagenPostInline, ContenidoBlogInline]
-    list_display = ('titulo', 'fecha', 'activo', 'facebook_status', 'telegram_status', 'whatsapp_status')
-    list_filter = ('categorias', 'activo', 'publicado_facebook', 'publicado_telegram', 'publicado_whatsapp', 'fecha')
+    list_display = ('titulo', 'fecha', 'activo', 'destacado', 'facebook_status', 'telegram_status', 'whatsapp_status')
+    list_filter = ('categorias', 'activo', 'destacado', 'publicado_facebook', 'publicado_telegram', 'publicado_whatsapp', 'fecha')
     search_fields = ('titulo', 'slug', 'categorias__nombre')
     prepopulated_fields = {'slug': ('titulo',)}
     
@@ -69,7 +69,7 @@ class PostAdmin(admin.ModelAdmin):
     # Organizar campos en secciones
     fieldsets = (
         ('Información General', {
-            'fields': ('titulo', 'slug', 'categorias', 'activo', 'fecha')
+            'fields': ('titulo', 'slug', 'categorias', 'activo', 'destacado', 'fecha')
         }),
         ('SEO', {
             'fields': ('meta_title', 'meta_keywords', 'meta_description'),

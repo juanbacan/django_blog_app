@@ -19,13 +19,16 @@ def args(obj, arg):
     
 
 def get_photo_user(user):
+        if not user:
+            return None
         if user.socialaccount_set.exists():
             social_account = user.socialaccount_set.first()
             return social_account.get_avatar_url()
-        else:
-            return None
+        return None
         
 def get_first_name(user):
+    if not user:
+        return ''
     if user.first_name == "":
         return user.username
     return user.first_name

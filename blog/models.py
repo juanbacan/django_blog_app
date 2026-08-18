@@ -54,6 +54,7 @@ class Post(ModeloBase):
     categorias = models.ManyToManyField(Categoria)
     # etiquetas = models.ManyToManyField(Etiqueta)
     activo = models.BooleanField(default=True)
+    destacado = models.BooleanField('Destacado', default=False)
     meta_title = models.CharField(max_length=200, null=True, blank=True)
     meta_keywords = models.CharField(max_length=300, null=True, blank=True)
     meta_description = models.TextField(max_length=500, null=True, blank=True)
