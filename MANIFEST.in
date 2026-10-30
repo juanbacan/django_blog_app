@@ -1,3 +1,7 @@
 recursive-include blog/templates *
 recursive-include blog/static *
 recursive-include blog/locale *
+
+# No empaquetar migrations generadas; viven solo en cada deploy
+recursive-exclude */migrations *.py
+recursive-include */migrations __init__.py
