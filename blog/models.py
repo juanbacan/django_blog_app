@@ -84,31 +84,44 @@ class Post(ModeloBase):
     def __str__(self):
         return self.titulo
     
+    def _imagen_principal(self):
+        return self.imagenpost_set.filter(principal=True).first() or self.imagenpost_set.first()
+
     def mi_imagen(self):
         """Retorna la URL completa (absoluta) de la imagen."""
         try:
             from django.conf import settings
-            
-            imagen = self.imagenpost_set.filter(principal=True).first() or self.imagenpost_set.first()
+
+            imagen = self._imagen_principal()
             if not imagen:
                 return None
-                
+
             url = imagen.imagen.url
             if not url:
                 return None
-            
+
             # Si ya es URL absoluta, devolverla tal como está
             if url.startswith(('http://', 'https://')):
                 return url
-            
+
             # Si no, construir la URL completa usando SITE_URL de settings
             site_url = getattr(settings, 'SITE_URL', '').rstrip('/')
             if site_url:
                 return f"{site_url}{url}"
-            
+
             return url
-        except:
+        except Exception:
             return None
+
+    def mi_imagen_alt(self):
+        """Texto alternativo de la imagen principal (fallback: título del post)."""
+        try:
+            imagen = self._imagen_principal()
+            if imagen and (imagen.alt or '').strip():
+                return imagen.alt.strip()
+        except Exception:
+            pass
+        return self.titulo or ''
 
 
     def mis_descripciones(self):
@@ -151,6 +164,13 @@ class ImagenPost(ModeloBase):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     imagen = ResizedImageField(force_format="WEBP", quality=75, upload_to='blog', null=True, blank=True)
     principal = models.BooleanField(default=False)
+    alt = models.CharField(
+        max_length=255,
+        blank=True,
+        default='',
+        verbose_name='Texto alternativo',
+        help_text='Descripción accesible de la imagen (SEO / lectores de pantalla).',
+    )
 
     def __str__(self):
         return self.post.titulo
