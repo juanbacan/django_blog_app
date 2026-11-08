@@ -61,8 +61,34 @@ class Post(ModeloBase):
     
     # Campos para publicación en redes sociales
     # Facebook
+    FACEBOOK_NO_PUBLICADO = 'no_publicado'
+    FACEBOOK_DRAFT = 'draft'
+    FACEBOOK_PUBLICO = 'publico'
+    FACEBOOK_ERROR = 'error'
+    FACEBOOK_ESTADO_CHOICES = (
+        (FACEBOOK_NO_PUBLICADO, 'No publicado'),
+        (FACEBOOK_DRAFT, 'Borrador en Facebook'),
+        (FACEBOOK_PUBLICO, 'Público en Facebook'),
+        (FACEBOOK_ERROR, 'Error'),
+    )
+
     publicado_facebook = models.BooleanField(default=False, verbose_name="Publicado en Facebook")
+    facebook_estado = models.CharField(
+        max_length=20,
+        choices=FACEBOOK_ESTADO_CHOICES,
+        default=FACEBOOK_NO_PUBLICADO,
+        verbose_name='Estado Facebook',
+    )
+    facebook_post_id = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='ID del post en Facebook',
+    )
     url_post_facebook = models.URLField(max_length=500, null=True, blank=True, verbose_name="URL del post en Facebook")
+    facebook_titulo_usado = models.TextField(null=True, blank=True, verbose_name='Título usado en Facebook')
+    facebook_descripcion_usada = models.TextField(null=True, blank=True, verbose_name='Descripción usada en Facebook')
+    facebook_comentario_usado = models.TextField(null=True, blank=True, verbose_name='Primer comentario usado en Facebook')
     
     # WhatsApp
     publicado_whatsapp = models.BooleanField(default=False, verbose_name="Publicado en WhatsApp")

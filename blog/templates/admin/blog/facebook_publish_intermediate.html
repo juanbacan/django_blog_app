@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<p>{{ description }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="{{ action_name }}">
+  <input type="hidden" name="apply" value="1">
+  {% for obj in posts %}
+    <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk }}">
+  {% endfor %}
+
+  {% if show_overrides %}
+    <fieldset class="module aligned">
+      <h2>Texto del post (opcional; vacío = defaults del blog)</h2>
+      {{ form.as_p }}
+    </fieldset>
+  {% else %}
+    <p>Se publicarán <strong>{{ posts|length }}</strong> posts con el título/descripción de cada uno.</p>
+  {% endif %}
+
+  <ul>
+    {% for obj in posts %}
+      <li>{{ obj.titulo }} <code>({{ obj.slug }})</code></li>
+    {% endfor %}
+  </ul>
+
+  <div class="submit-row">
+    <input type="submit" class="default" value="{{ confirm_label }}">
+    <a href=".." class="button cancel-link">Cancelar</a>
+  </div>
+</form>
+{% endblock %}
