@@ -1,11 +1,12 @@
 {% extends 'layout/base_sidebar.html' %}
 {% load blog_extras %}
+{% load core_extras %}
 {% load static %}
 {% load i18n %}
 
 {% block meta_tags %}
-    <title>{{ post.titulo }}</title>
-    <meta name="title" content="{{ post.meta_title }}"/>
+    <title>{{ post.meta_title|default:post.titulo }}</title>
+    <meta name="title" content="{{ post.meta_title|default:post.titulo }}"/>
     <meta name="description" content="{{ post.meta_description }}"/>
 
     <script type="application/ld+json">
@@ -32,7 +33,7 @@
                 "name": "{{ application.titulo_sitio }}",
                 "logo": {
                     "@type": "ImageObject",
-                    "url": "{{ application.url_safe }}{{ application.logo.url }}"
+                    "url": "{{ application.logo.url|absolute_with_site:application.url_safe }}"
                 }
             },
             "description": "{{ post.meta_description }}"
@@ -41,7 +42,7 @@
 {% endblock %}
 
 {% block meta_social %}
-    <meta property="og:title" content="{{ post.titulo }}">
+    <meta property="og:title" content="{{ post.meta_title|default:post.titulo }}">
     <meta property="og:description" content="{{ post.mi_descripcion_corta }}">
     <meta property="og:image" content="{{ post.mi_imagen }}"/>
     <meta property="twitter:image" content="{{ post.mi_imagen }}">

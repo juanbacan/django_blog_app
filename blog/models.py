@@ -175,15 +175,17 @@ class Post(ModeloBase):
         return Post.objects.filter(categorias__in=self.categorias.all()).exclude(id=self.id).distinct()[:3]
     
 
+    def get_absolute_url(self):
+        return reverse('blog:post', args=[self.slug])
+
     def mi_url_relativa(self):
-        return '/post/' + self.slug + '/'
+        # Usa la ruta pública real (p. ej. /blog/post/<slug>/), no un path hardcodeado.
+        return self.get_absolute_url()
 
     @cached_property
     def mi_url_absoluta(self):
-        return f"{settings.URL_BASE}{self.mi_url_relativa()}"
-    
-    def get_absolute_url(self):
-        return reverse('blog:post', args=[self.slug])
+        base = getattr(settings, 'URL_BASE', '') or ''
+        return f"{base.rstrip('/')}{self.get_absolute_url()}"
 
 
 class ImagenPost(ModeloBase):
